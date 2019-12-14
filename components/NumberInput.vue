@@ -4,7 +4,7 @@
       class="NumberInput"
       type="text"
       @input="oninput"
-      v-bind:class="{'NumberInput--error': isError}"
+      :class="{'NumberInput--error': isError}"
     />
   </div>
 </template>
