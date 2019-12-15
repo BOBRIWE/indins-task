@@ -1,7 +1,7 @@
 <template>
   <div>
     <input
-      class="NumberInput"
+      class="NumberInput__input"
       type="text"
       @input="oninput"
       :class="{'NumberInput--error': isError}"
@@ -18,7 +18,7 @@ export default {
     const number = new SpecialNumber('');
     return {
       rawNumber: number,
-      isError: number.isSupportedNumber()
+      isError: !number.isSupportedNumber()
     }
   },
   watch: {
@@ -40,16 +40,26 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .NumberInput {
   outline: none;
-}
 
-.NumberInput--success {
-  border-color: green;
-}
+  &--success {
+    border-color: green;
+  }
 
-.NumberInput--error {
-  border-color: red;
+  &--error {
+    border-color: red;
+  }
+
+  &__input {
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
+
+    &::placeholder {
+      color: darkgray;
+    }
+  }
 }
 </style>

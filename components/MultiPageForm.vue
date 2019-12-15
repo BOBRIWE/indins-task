@@ -1,41 +1,63 @@
 <template>
   <section class="MultiPageForm">
-    <MultiPageInput
-      :class="{'MultiPageInput--current': currentIndex === index}"
-      v-for="(valueName, index) in $props.valuesToGet"
-      :key="valueName"
-      :placeholder="valueName"
-      buttonValue="Далее"
-      @onInputDone="onInputDone(index, $event)"
-    />
-    <article class="MultiPageForm__modal-window" :class="{'MultiPageForm__modal-window--shown': isFinal}">
+    <div v-if="!isStarted">
+      <button class="MultiPageForm__button" @click="isStarted = true">Далее</button>
+    </div>
+    <div v-if="isStarted">
       <MultiPageInput
-        class="MultiPageInput--current"
-        :placeholder="finalValue"
-        buttonValue="Закончить"
-        @onInputDone="onFinalDone"
+        :is-focused="currentIndex === index"
+        v-for="(valueName, index) in $props.valuesToGet"
+        :key="valueName"
+        :placeholder="valueName"
+        buttonValue="Далее"
+        @onInputDone="onInputDone(index, $event)"
       />
-    </article>
+
+      <ModalWindow
+        @onModalButtonClicked="onFinalDone"
+        :isShown="isFinal"
+        button-value="Закончить"
+      >
+        <template v-slot:header>
+        Почти закончили!
+        </template>
+        <template v-slot:main>
+        <input
+          class="MultiPageForm__final-input"
+          type="text"
+          @input="finalValue = $event.target.value"
+          :placeholder="finalValueName"
+        >
+        </template>
+      </ModalWindow>
+    </div>
   </section>
 </template>
 
 <script>
 import MultiPageInput from "./MultiPageInput";
+import ModalWindow from "./ModalWindow";
 export default {
   name: "MultiPageForm",
   data() {
     return {
       values: [],
+      finalValue: '',
       isFinal: false,
-      currentIndex: 0
+      currentIndex: NaN,
+      isStarted: false
     };
   },
+  mounted() {
+    this.currentIndex = 0;
+  },
   components: {
+    ModalWindow,
     MultiPageInput
   },
   props: {
     valuesToGet: Array,
-    finalValue: String
+    finalValueName: String
   },
   methods: {
     onInputDone(index, value) {
@@ -46,27 +68,39 @@ export default {
         this.isFinal = true;
       }
     },
-    onFinalDone(value) {
-      this.values.push(value);
+    onFinalDone() {
+      this.values.push(this.finalValue);
       this.$emit('onAllValuesDone', this.values);
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .MultiPageForm {
-}
+  &__button {
+    background-color: #3B8070;
+    opacity: .4;
+    border: none;
+    padding: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
 
-.MultiPageForm__modal-window {
-  display: none;
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  box-shadow: 9px 14px 68px -4px rgba(0,0,0,0.42);
-}
+    &:hover {
+      opacity: .2;
+      cursor: pointer;
+    }
+  }
 
-.MultiPageForm__modal-window--shown {
-  display: block;
+  &__final-input {
+    padding: 10px;
+    font-size: 20px;
+    outline: none;
+
+    &::placeholder {
+      color: darkgray;
+    }
+  }
 }
 </style>

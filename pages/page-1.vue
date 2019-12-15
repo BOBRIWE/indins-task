@@ -1,8 +1,8 @@
 <template>
-  <section>
+  <main class="Page1">
     <h1>Page 1</h1>
     <NumberInputsList/>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -16,6 +16,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.Page1 {
+  display: grid;
+  justify-content: center;
+  height: 100vh;
+  align-content: center;
+}
 </style>

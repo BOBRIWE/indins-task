@@ -2,7 +2,7 @@
   <main class="Page2">
     <MultiPageForm
       :values-to-get="valuesToGet"
-      :final-value="finalValue"
+      :final-value-name="finalValue"
       @onAllValuesDone="onAllValuesDone"
     />
   </main>
@@ -18,10 +18,10 @@ export default {
   },
   data() {
     return {
-      finalValue: 'phone',
+      finalValue: 'Телефон',
       valuesToGet: [
-        'second-name',
-        'first-name'
+        'Фамилия',
+        'Имя'
       ]
     };
   },
@@ -43,7 +43,8 @@ export default {
 <style>
 .Page2 {
   display: grid;
-  justify-items: center;
-  padding-top: 300px;
+  justify-content: center;
+  height: 100vh;
+  align-content: center;
 }
 </style>

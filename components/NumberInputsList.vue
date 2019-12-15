@@ -2,11 +2,11 @@
   <section>
     <article v-for="(number, index) in numbers" v-bind:key="index">
       <NumberInput @onNumberChanged="onNumberChanged(index, $event)"/>
-      <div v-if="numbers.length - 1 !== index">+</div>
+      <div class="NumberInputsList__separator" v-if="numbers.length - 1 !== index">+</div>
     </article>
     <article>
-      <div>=</div>
-      <input disabled :value="sum">
+      <div class="NumberInputsList__separator">=</div>
+      <input class="NumberInputsList__sum" disabled :value="sum">
     </article>
   </section>
 </template>
@@ -72,6 +72,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.NumberInputsList {
+  &__sum {
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
 
+    &::placeholder {
+      color: darkgray;
+    }
+  }
+
+  &__separator {
+    text-align: center;
+  }
+}
 </style>
