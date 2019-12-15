@@ -14,7 +14,7 @@ import SpecialNumber from "./SpecialNumber.js";
 
 export default {
   name: "NumberInput",
-  data: function() {
+  data() {
     const number = new SpecialNumber('');
     return {
       rawNumber: number,

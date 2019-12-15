@@ -19,15 +19,15 @@
         button-value="Закончить"
       >
         <template v-slot:header>
-        Почти закончили!
+          Почти закончили!
         </template>
         <template v-slot:main>
-        <input
-          class="MultiPageForm__final-input"
-          type="text"
-          @input="finalValue = $event.target.value"
-          :placeholder="finalValueName"
-        >
+          <input
+            class="MultiPageForm__final-input"
+            type="text"
+            @input="finalValue = $event.target.value"
+            :placeholder="finalValueName"
+          >
         </template>
       </ModalWindow>
     </div>

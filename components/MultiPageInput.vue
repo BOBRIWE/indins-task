@@ -3,7 +3,13 @@
     class="MultiPageInput"
     :class="{'MultiPageInput--current': $props.isFocused}"
   >
-    <input ref="input" class="MultiPageInput__input" type="text" @input="value = $event.target.value" :placeholder="$props.placeholder">
+    <input
+      ref="input"
+      class="MultiPageInput__input"
+      type="text"
+      @input="value = $event.target.value"
+      :placeholder="$props.placeholder"
+    >
     <button class="MultiPageInput__button" @click="onButtonClick">{{$props.buttonValue}}</button>
   </article>
 </template>
